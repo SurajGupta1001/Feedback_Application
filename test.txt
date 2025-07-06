@@ -1,2 +1,0 @@
-Hello Git
-I am going to change this file from local and push it to cloud
