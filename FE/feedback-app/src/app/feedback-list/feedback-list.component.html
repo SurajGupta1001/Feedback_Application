@@ -1,0 +1,23 @@
+<div class="feedback-list-container">
+  <h2>Feedback List</h2>
+
+  <div *ngFor="let fb of feedbacks" class="feedback-card">
+    <div *ngIf="editingId !== fb.id">
+      <h3>{{ fb.title }} (Rating: {{ fb.rating }})</h3>
+      <p>{{ fb.content }}</p>
+      <p class="meta">By: {{ fb.user.name }} | {{ fb.createdAt | date:'short' }}</p>
+
+      <button class="edit-btn" (click)="startEdit(fb)">Edit</button>
+      <button class="delete-btn" (click)="deleteFeedback(fb.id)">Delete</button>
+    </div>
+
+    <div *ngIf="editingId === fb.id" class="edit-form">
+      <input [(ngModel)]="editedFeedback.title" placeholder="Title" />
+      <textarea [(ngModel)]="editedFeedback.content" placeholder="Content"></textarea>
+      <input type="number" [(ngModel)]="editedFeedback.rating" min="1" max="5" />
+
+      <button class="save-btn" (click)="saveEdit()">Save</button>
+      <button class="cancel-btn" (click)="cancelEdit()">Cancel</button>
+    </div>
+  </div>
+</div>

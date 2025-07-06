@@ -1,0 +1,41 @@
+<div class="feedback-form-container">
+  <h2>Submit Your Feedback</h2>
+
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input
+        type="text"
+        id="title"
+        [(ngModel)]="feedback.title"
+        name="title"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="content">Feedback</label>
+      <textarea
+        id="content"
+        [(ngModel)]="feedback.content"
+        name="content"
+        required
+        rows="5"
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="rating">Rating</label>
+      <select
+        id="rating"
+        [(ngModel)]="feedback.rating"
+        name="rating"
+        required
+      >
+        <option *ngFor="let r of [1, 2, 3, 4, 5]" [value]="r">{{ r }}</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn">Submit Feedback</button>
+  </form>
+</div>

@@ -1,0 +1,13 @@
+<header class="app-header">
+  <div class="logo">
+    <h1>📝 Feedback App</h1>
+  </div>
+  <nav class="nav-links">
+    <a routerLink="/" routerLinkActive="active">Home</a>
+    <a routerLink="/feedback" routerLinkActive="active">Submit Feedback</a>
+    <span>
+      <a *ngIf="!userAuthService.isLoggedIn()" routerLink="/login">Login</a>
+      <a *ngIf="userAuthService.isLoggedIn()" (click)="logout()">Logout</a>
+    </span>
+  </nav>
+</header>

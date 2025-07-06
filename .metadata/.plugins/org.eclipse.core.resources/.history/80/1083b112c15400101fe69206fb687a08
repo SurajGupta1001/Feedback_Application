@@ -1,0 +1,11 @@
+package com.gupta.feedback_app.repository;
+
+import org.springframework.data.repository.CrudRepository;
+
+import com.gupta.feedback_app.entity.Feedback;
+
+public interface FeedbackRepository extends CrudRepository<Feedback, Long> {
+
+	Feedback findByUser_Id();
+
+}
