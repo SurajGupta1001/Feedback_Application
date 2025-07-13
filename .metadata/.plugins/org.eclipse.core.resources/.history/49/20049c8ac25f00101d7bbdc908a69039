@@ -1,0 +1,89 @@
+package com.gupta.feedback_app.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.gupta.feedback_app.entity.Feedback;
+import com.gupta.feedback_app.entity.User;
+import com.gupta.feedback_app.model.FeedbackRequest;
+import com.gupta.feedback_app.repository.FeedbackRepository;
+import com.gupta.feedback_app.repository.UserRepository;
+
+@RestController
+@RequestMapping("/api/feedback")
+public class FeedbackController {
+	@Autowired
+	private FeedbackRepository feedbackRepo;
+	
+	@Autowired
+	private UserRepository userRepo;
+	
+	@PostMapping("/submit")
+	public ResponseEntity<?> submitFeedback(@RequestBody FeedbackRequest request) {
+		User user = userRepo.findById(request.getUserId()).orElse(null);
+		
+		if(user == null) {
+			return ResponseEntity.badRequest().body("User not found with Id : " + request.getUserId());
+		}
+		
+		Feedback feedback = new Feedback();
+		feedback.setUser(user);
+		feedback.setTitle(request.getTitle());
+		feedback.setContent(request.getContent());
+		feedback.setRating(request.getRating());
+		
+		Feedback savedFeedback = feedbackRepo.save(feedback);
+		return ResponseEntity.ok(savedFeedback);
+	}
+	
+	@GetMapping()
+	public ResponseEntity<?> getFeedback(@RequestParam Long userId) {
+		User user = userRepo.findById(userId).orElse(null);
+		
+		if(user == null) {
+			return ResponseEntity.badRequest().body("User not found with Id: " + userId);
+		}
+		
+		List<Feedback> feedback = feedbackRepo.findByUser_Id(userId);
+		
+		return ResponseEntity.ok(feedback);
+	}
+	
+	@PostMapping("update/{feedbackId}")
+	public ResponseEntity<?> updateFeedback(@RequestBody FeedbackRequest request, @PathVariable Long feedbackId) {
+		Feedback feedback = feedbackRepo.findById(feedbackId).orElse(null);
+		
+		if(feedback == null) {
+			return ResponseEntity.badRequest().body("Feedback not found with Id: " + feedbackId);
+		}
+		
+		feedback.setTitle(request.getTitle());
+		feedback.setContent(request.getContent());
+		feedback.setRating(request.getRating());
+		
+		feedbackRepo.save(feedback);
+		return ResponseEntity.ok("Feedback Updated Successfully");
+	}
+	
+	@PostMapping("/delete/{feedbackId}")
+	public ResponseEntity<String> deleteFeedback(@PathVariable Long feedbackId) {
+		Feedback feedback = feedbackRepo.findById(feedbackId).orElse(null);
+		
+		if(feedback == null) {
+			return ResponseEntity.badRequest().body("Feedback not found with Id: " + feedbackId);
+		}
+		
+		feedbackRepo.delete(feedback);
+		return ResponseEntity.ok("Feedback Deleted");
+	}
+}

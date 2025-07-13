@@ -1,0 +1,5 @@
+package com.gupta.feedback_app.config;
+
+public class WebConfig {
+
+}

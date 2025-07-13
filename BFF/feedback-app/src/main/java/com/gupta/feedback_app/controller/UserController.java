@@ -1,11 +1,9 @@
 package com.gupta.feedback_app.controller;
 
 import java.time.LocalDate;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +15,6 @@ import com.gupta.feedback_app.entity.User;
 import com.gupta.feedback_app.model.ChangePasswordRequest;
 import com.gupta.feedback_app.repository.UserRepository;
 
-@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
