@@ -19,7 +19,7 @@ import com.gupta.feedback_app.model.FeedbackRequest;
 import com.gupta.feedback_app.repository.FeedbackRepository;
 import com.gupta.feedback_app.repository.UserRepository;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://feedback-application-4py0.onrender.com")
 @RestController
 @RequestMapping("/api/feedback")
 public class FeedbackController {
