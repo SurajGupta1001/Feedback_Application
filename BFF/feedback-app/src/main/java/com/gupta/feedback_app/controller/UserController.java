@@ -17,7 +17,7 @@ import com.gupta.feedback_app.entity.User;
 import com.gupta.feedback_app.model.ChangePasswordRequest;
 import com.gupta.feedback_app.repository.UserRepository;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://feedback-application-4py0.onrender.com")
 @RestController
 @RequestMapping("/api/users")
 public class UserController {

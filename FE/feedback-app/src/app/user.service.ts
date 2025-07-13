@@ -17,7 +17,7 @@ export interface User {
 export class UserService {
     constructor(private http: HttpClient) {}
 
-    private baseUrl = 'http://localhost:8080/api/users/user';
+    private baseUrl = 'https://feedback-application-4py0.onrender.com/api/users/user';
 
     register(user: User): Observable<any> {
         return this.http.post(`${this.baseUrl}`, user);

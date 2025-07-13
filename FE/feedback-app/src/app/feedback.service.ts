@@ -16,7 +16,7 @@ interface Feedback {
 export class FeedbackService {
     constructor(private http: HttpClient) {}
 
-    private baseUrl = 'http://localhost:8080/api/feedback';
+    private baseUrl = 'https://feedback-application-4py0.onrender.com/api/feedback';
 
     submitFeedback(feedback: Feedback): Observable<any> {
         return this.http.post(`${this.baseUrl}/submit`, feedback);
